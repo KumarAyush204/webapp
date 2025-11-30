@@ -30,15 +30,12 @@ pipeline {
     steps {
         bat '''
             @echo off
-            REM Set JAVA_HOME to JDK 21 just for this step
+            REM 1. Set Java to JDK 21 (Required for Sonar Scanner)
             set "JAVA_HOME=C:\\Program Files\\Java\\jdk-21"
             set "PATH=%JAVA_HOME%\\bin;%PATH%"
             
-            REM Verify version (optional, for debugging)
-            java -version
-            
-            REM Run the scan
-            mvn clean install org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.analysis.mode=publish
+            REM 2. Run the scan with your new Token
+            mvn clean install org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.analysis.mode=publish -Dsonar.token=squ_3c63024ad504b2be2b8bd99841451530aeb6005d
         '''
     }
 }
