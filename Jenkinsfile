@@ -27,9 +27,20 @@ pipeline {
             }
         }
         stage('Sonar-Report') {
-            steps {
-                bat 'mvn clean install org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.analysis.mode=publish'
-            }
-        }
+    steps {
+        bat '''
+            @echo off
+            REM Set JAVA_HOME to JDK 21 just for this step
+            set "JAVA_HOME=C:\\Program Files\\Java\\jdk-21"
+            set "PATH=%JAVA_HOME%\\bin;%PATH%"
+            
+            REM Verify version (optional, for debugging)
+            java -version
+            
+            REM Run the scan
+            mvn clean install org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.analysis.mode=publish
+        '''
+    }
+}
     }
 }
