@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Sonar-Report') {
             steps {
-                bat 'mvn clean install org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.analysis.mode=publish'
+                bat 'mvn clean install org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.2:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.analysis.mode=publish'
             }
         }
     }
